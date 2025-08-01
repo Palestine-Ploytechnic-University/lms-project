@@ -10,15 +10,17 @@ public class Score {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private double score;
+
     private String feedback;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_id", nullable = false)
     private User student;
 
     @ManyToOne
-    @JoinColumn(name = "quiz_id")
+    @JoinColumn(name = "quiz_id", nullable = false)
     private Quiz quiz;
 
     // Constructors
@@ -56,8 +58,8 @@ public class Score {
         return student;
     }
 
-    public void setStudent(User studentId) {
-        this.student = studentId;
+    public void setStudent(User student) {
+        this.student = student;
     }
 
     public Quiz getQuiz() {
@@ -66,10 +68,5 @@ public class Score {
 
     public void setQuiz(Quiz quiz) {
         this.quiz = quiz;
-    }
-
-    public void setQuizId(Long quizId) {
-
-        throw new UnsupportedOperationException("Unimplemented method 'setQuizId'");
     }
 }

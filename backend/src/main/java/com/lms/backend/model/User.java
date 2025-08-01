@@ -1,11 +1,17 @@
 package com.lms.backend.model;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.Collections;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,13 +35,72 @@ public class User {
         STUDENT
     }
 
-    public CharSequence getPassword() {
-        throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
+    // ✅ Getters & Setters عادية
+    public Integer getId() {
+        return id;
     }
 
-    public void setPassword(String encode) {
-        throw new UnsupportedOperationException("Unimplemented method 'setPassword'");
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    // Getters & Setters
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    // ✅ تطبيق متطلبات UserDetails
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_" + role.name()));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

@@ -20,34 +20,47 @@ public class AssessmentService {
     private final QuizRepository quizRepository;
     private final UserRepository userRepository;
 
-    public Score recordScore(Long studentId, Long quizId, double score, String feedback) {
+    /**
+     * Records a score for a student and quiz.
+     */
+    public Score recordScore(Long studentId, Long quizId, double scoreValue, String feedback) {
         User student = userRepository.findById(studentId)
                 .orElseThrow(() -> new RuntimeException("Student not found"));
+        Quiz quiz = quizRepository.findById(quizId)
+                .orElseThrow(() -> new RuntimeException("Quiz not found"));
 
         Score s = new Score();
-        s.setStudent(student);  // ✅ هنا التعديل
-        s.setQuizId(quizId);
-        s.setScore(score);
+        s.setStudent(student);
+        s.setQuiz(quiz);
+        s.setScore(scoreValue);
         s.setFeedback(feedback);
         return scoreRepository.save(s);
     }
 
+    /**
+     * Creates a new quiz.
+     */
     public Quiz createQuiz(Quiz quiz) {
         return quizRepository.save(quiz);
     }
 
+    /**
+     * Submits quiz answers and records a score.
+     */
     public Score submitQuiz(QuizSubmissionRequest submission) {
         double calculatedScore = 0.0;
-
         return recordScore(
-            submission.getStudentId(),
-            submission.getQuizId(),
-            calculatedScore,
-            "Submitted successfully"
+                submission.getStudentId(),
+                submission.getQuizId(),
+                calculatedScore,
+                "Submitted successfully"
         );
     }
 
+    /**
+     * Retrieves all scores for a given student.
+     */
     public List<Score> getScores(Long studentId) {
-        return scoreRepository.findByStudentId(studentId);
+        return scoreRepository.findByStudent_Id(studentId);
     }
 }

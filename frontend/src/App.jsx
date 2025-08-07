@@ -6,6 +6,8 @@ import Login from "./Login";
 import Signup from "./Signup";
 import AdminDashboard from "./AdminDashboard";
 import InstructorDashboard from "./InstructorDashboard";
+import StudentDashboard from './StudentDashboard';
+
 
 
 const App = () => {
@@ -22,6 +24,11 @@ const App = () => {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
         <Route path="/instructor/dashboard" element={<InstructorDashboard />} />
+        <Route path="/student/dashboard" element={<StudentDashboard />} />
+
+
+
+
       </Routes>
     </Router>
   );

@@ -131,5 +131,35 @@
         "What is the purpose of indexes in a database?"
       ]
     }
+  ],
+  "schedule": [
+    {
+      "id": "1",
+      "studentId": 4,
+      "day": "Sunday",
+      "time": "10:00 AM",
+      "courseTitle": "Java Basics"
+    },
+    {
+      "id": "2",
+      "studentId": 4,
+      "day": "Tuesday",
+      "time": "1:00 PM",
+      "courseTitle": "Web Development with React"
+    },
+    {
+      "id": "3",
+      "studentId": 5,
+      "day": "Monday",
+      "time": "9:00 AM",
+      "courseTitle": "Java Basics"
+    },
+    {
+      "id": "4",
+      "studentId": 5,
+      "day": "Thursday",
+      "time": "11:00 AM",
+      "courseTitle": "Database Management with MySQL"
+    }
   ]
 }
